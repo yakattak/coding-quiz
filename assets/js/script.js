@@ -55,15 +55,28 @@ function readButton(event) {
     event.preventDefault();
     var targetEl = event.target;
     
-  //begin quiz if start button clicked ELSE check if true button clicked
+  //begin quiz if start button clicked 
 
     if (targetEl.matches("#start-button")) {
         beginquiz(targetEl);
 
     
-} else if (targetEl.matches(".submit-score")) {
+        }
+        //submit score if submit score button is clicked
+     if (targetEl.matches(".submit-score")) {
     submitScore();
-}else {
+        }
+        //clear scores if clear score is picked
+    if (targetEl.matches(".clear-scores")) {
+        localStorage.setItem("highScores", JSON.stringify([]));
+    }
+        //reload page if retry quiz is picked
+    if(targetEl.matches(".restart")) {
+        location.reload();
+    }
+
+
+// if button click is related to a question
     if (targetEl.getAttribute("trueOrfalse") === "true") {
         console.log("true");
         questionNum = questionNum + 1;
@@ -83,7 +96,7 @@ function readButton(event) {
     }
         
 
-}
+
 }
 
 //function to start timer and begin quiz
@@ -148,6 +161,8 @@ var setTimer = function(timeLeft) {
                 window.value = timeLeft;
                 //if run out of time gameover
             } 
+
+            //endgame if time left is 0
             if (timeLeft === 0) {
                 timerEl.textContent = "Time Left: 0";
                 //stop window.value
@@ -177,10 +192,12 @@ gameOver = function() {
     highScoreList();
 }
 
+//create option to add name to high score list
 highScoreList = function() {
     //create container for name
     questionPhraseEl.textContent = "Challenge over, your score is " + window.value;
     inputDiv = document.createElement("div");
+    inputDiv.setAttribute("class", "submit-score");
     inputEl = document.createElement ("input");
     inputEl.setAttribute("placeholder", "Enter Your Name");
     inputDiv.appendChild(inputEl);
@@ -192,7 +209,7 @@ highScoreList = function() {
 
     
 }
-//player submit score
+//what to do if submit score button is clicked
 submitScore = function() {
     console.log("you hit the thing");
     playerName = document.querySelector("input").value;
@@ -202,10 +219,12 @@ submitScore = function() {
     }
     else {
         console.log(playerName);
-        highScores.push(playerName);
-        highScores.push(window.value);
+        playerScore = [];
+        playerScore.push(window.value);
+        playerScore.push(playerName);
+        highScores.push(playerScore);
         saveHighScore(highScores);
-        console.log(highScores);
+        showHighScores();
        
     }
     
@@ -214,7 +233,34 @@ submitScore = function() {
 
 //show list with high scores
 var showHighScores = function() {
-    console.log(highScores);
+    deleteContent = document.querySelector(".submit-score");
+    console.log(deleteContent);
+    deleteContent.remove();
+    questionPhraseEl.textContent = "High Score List";
+    scoreListEl = scoreListEl = document.createElement("ul")
+    
+// loop high score list and add to page
+    for (i in highScores) {
+        scoreListItem = document.createElement("li");
+        scoreListItem.textContent = highScores[i][1] + " " + highScores[i][0];
+        scoreListEl.appendChild(scoreListItem);
+        questionPhraseEl.appendChild(scoreListEl);
+        
+    }
+    // create buttons to restart quiz OR clear high scores
+    var restartBtn = document.createElement("button");
+    var clearHighscores = document.createElement("button");
+
+    var buttonsDiv = document.createElement("div");
+    restartBtn.textContent = "Retry Quiz";
+    clearHighscores.textContent = "Clear High Scores";
+    clearHighscores.setAttribute("class", "clear-scores")
+    restartBtn.setAttribute("class", "restart");
+    buttonsDiv.appendChild (restartBtn);
+    buttonsDiv.appendChild(clearHighscores);
+    questionPhraseEl.appendChild(buttonsDiv);
+
+
 
 }
 
@@ -245,6 +291,5 @@ var loadHighScore = function() {
 
 //function to start quiz
 questionBoxEl.addEventListener("click", readButton);
-
+//load old scores
 loadHighScore();
-console.log(highScores);
