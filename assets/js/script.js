@@ -3,7 +3,7 @@ var questionPhraseEl = document.querySelector(".question-phrase")
 
 
 var timerEl = document.getElementById('countdown');
-var setTimer = 75;
+var timeInit = 75;
 questionBank = [
   question1 = {
     question: "this is the question 1",
@@ -46,8 +46,13 @@ function readButton(event) {
         choiceListEl.remove();
         loadQuestion();
     } else {
-        console.log("FALS MOTHA");
-    }
+        //false chosen: stop timer and create time penalty
+        setTimer(mystopFunction());;
+        newTime = window.value - 5;
+        setTimer(newTime);
+        
+        
+}
 }
 }
 
@@ -55,14 +60,8 @@ function readButton(event) {
 var beginquiz = function(targetEl) {
     
 
-        var timeLeft = setTimer;
-        var timeInterval = setInterval(function() {
-            if (timeLeft >0) {
-                timerEl.textContent = " Time Left: " + timeLeft;
-                timeLeft--;
-            } 
-            
-        }, 1000);
+        setTimer(timeInit);
+
         targetEl.remove();
         questionNum = 0;
         loadQuestion();
@@ -97,6 +96,34 @@ var loadQuestion = function() {
   
 }
 
+var setTimer = function(timeLeft) {
+        
+        var timeInterval = setInterval(function() {
+            if (timeLeft >=0) {
+                timerEl.textContent = " Time Left: " + timeLeft;
+                timeLeft--;                
+                window.value = timeLeft;
+                
+            } else {
+                gameOver();
+            }
+
+            
+            
+        }, 1000);
+
+        mystopFunction = function() {
+            clearInterval (timeInterval);
+        };
+
+        
+
+    }
 
 //function to start quiz
 questionBoxEl.addEventListener("click", readButton);
+
+//gameOver function
+gameOver = function() {}
+
+
