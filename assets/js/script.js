@@ -3,47 +3,77 @@ var questionPhraseEl = document.querySelector(".question-phrase")
 var highScores = [];
 
 var timerEl = document.getElementById('countdown');
-var timeInit = 15;
+var timeInit = 75;
 
 //create a quesiton bank
 questionBank = [
   question1 = {
-    question: "this is the question 1",
+    question: "What is the command we use to create a new file?",
     choices : {
-        choice1 : [true, "this is choice 1"],
-        choice2 : [false, "this is false choice 1"],
-        choice3 : [false, "this is false choice 2"],
-        choice4 : [false, "this is false choice 3"],
+        choice1 : [false, "mkdir"],
+        choice2 : [false, "pwd"],
+        choice3 : [true, "touch"],
+        choice4 : [false, "cd"],
         }, 
         
    },
-   question1 = {
-    question: "this is the question 2",
+   question2 = {
+    question: "What are the steps to create a new remote repository and then connect it to our local machine?",
     choices : {
-        choice1 : [true, "this is choice 1"],
-        choice2 : [false, "this is false choice 1"],
-        choice3 : [false, "this is false choice 2"],
-        choice4 : [false, "this is false choice 3"],
+        choice1 : [false, "First, we create a new repository with a new README file on GitHub. Then, we select the SSH option to clone the repository. Last, we use the git command 'git pull' followed by the SSH key we copied."],
+        choice2 : [false, "First, we create a new repository on GitHub. Next, we copy the URL of the repository from the address bar. Last, we use the git command 'git pull' to pull down the remote repository on to our local machine."],
+        choice3 : [false, "First, we create a new repository on GitHub. Next, we copy the URL of the repository. Last, we use the git command 'git clone' followed by the URL we copied."],
+        choice4 : [true, "First, we create a new repository with a new README file on GitHub. Then, we select the HTTPS or SSH option to copy the URL to clone the repository. Last, we use the git command 'git clone' followed by the URL we copied on our local machine."],
         }, 
         
    },
-   question1 = {
-    question: "this is the question 3",
+   question3 = {
+    question: "Given the following CSS selector, which HTML element would be the outermost/parent element? header nav ul li { color: white;",
     choices : {
-        choice1 : [true, "this is choice 1"],
-        choice2 : [false, "this is false choice 1"],
-        choice3 : [false, "this is false choice 2"],
-        choice4 : [false, "this is false choice 3"],
+        choice1 : [false, "<ul>"],
+        choice2 : [true, "<header>"],
+        choice3 : [false, "<nav>"],
+        choice4 : [false, "<li>"],
         }, 
         
    },
-   question1 = {
-    question: "this is the question 4",
+   question4 = {
+    question: "What are HTML semantic elements? ",
     choices : {
-        choice1 : [true, "this is choice 1"],
-        choice2 : [false, "this is false choice 1"],
-        choice3 : [false, "this is false choice 2"],
-        choice4 : [false, "this is false choice 3"],
+        choice1 : [false, "Semantic elements are outdated and are no longer used in HTML."],
+        choice2 : [false, "Semantic elements, like `<div>`, hold the important content together so it's easy to understand."],
+        choice3 : [true, "A semantic element clearly describes its meaning to both the browser and the developer."],
+        choice4 : [false, "A semantic element reveals nothing about its content to the browser or the developer."],
+        }, 
+        
+   },
+   question5 = {
+    question: "What CSS declaration could you add to `<div style='width: 50%;'>` to center it? ",
+    choices : {
+        choice1 : [true, "margin: 0 auto"],
+        choice2 : [false, "float: center"],
+        choice3 : [false, "align: center"],
+        choice4 : [false, "text-align: center"],
+        }, 
+        
+   },
+   question6 = {
+    question: "What is a pseudo-class?    ",
+    choices : {
+        choice1 : [false, "A CSS rule that contains no declarations."],
+        choice2 : [false, "A CSS declaration that hides the element."],
+        choice3 : [false, "An element that has more than one class."],
+        choice4 : [true, "A CSS keyword to target an element's state."],
+        }, 
+        
+   },
+   question7 = {
+    question: "What is an example of a pseudo-element?",
+    choices : {
+        choice1 : [false, "::before"],
+        choice2 : [false, "::after"],
+        choice3 : [false, "::first-letter"],
+        choice4 : [true, "All of the above."],
         }, 
         
    },
