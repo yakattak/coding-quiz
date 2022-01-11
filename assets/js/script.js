@@ -3,7 +3,7 @@ var questionPhraseEl = document.querySelector(".question-phrase")
 var highScores = [];
 
 var timerEl = document.getElementById('countdown');
-var timeInit = 75;
+var timeLeft = 75;
 
 //create a quesiton bank
 questionBank = [
@@ -78,8 +78,8 @@ questionBank = [
         
    },
 ];
-//Timer Countdown
 
+//read button input and point to correct function
 function readButton(event) {
     console.log(event.target);
     event.preventDefault();
@@ -117,12 +117,12 @@ function readButton(event) {
         loadQuestion();
     } else if (targetEl.getAttribute("trueOrfalse") === "false")  {
         //false chosen: stop timer and create time penalty
-        setTimer(mystopFunction());;
-        newTime = window.value - 5;
-        if (newTime <1) {
-            newTime = 1;
-        }
-        setTimer(newTime);
+        
+        timeLeft = timeLeft - 5;
+        if (timeLeft <1) {
+            timeLeft = 1;
+            };
+        
     }
         
 
@@ -133,7 +133,7 @@ function readButton(event) {
 var beginquiz = function(targetEl) {
     
 
-        setTimer(timeInit);
+        setTimer();
 // clear element for questions
         targetEl.remove();
         questionNum = 0;
@@ -181,7 +181,7 @@ var loadQuestion = function() {
 }
 
 //timer function
-var setTimer = function(timeLeft) {
+var setTimer = function() {
         
         var timeInterval = setInterval(function() {
             if (timeLeft >0) {
